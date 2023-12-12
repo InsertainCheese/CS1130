@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.cdnfonts.com/css/8bit-wonder" rel="stylesheet">
+    <script src="simplepayroll.js" defer></script>
+    <style>
+        body {
+            background: url('https://media1.tenor.com/m/-sazR0Z_pB8AAAAC/horusultra-vaporwave.gif') center center fixed;
+            background-size: cover;
+            font-family: '8bit Wonder', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden; 
+        }
+
+        .main .header-container {
+            background: none; 
+            border: none; 
+            padding: 20px;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            width: calc(100% - 20px); 
+            z-index: 1;
+        }
+
+        .main h1 {
+            color: #fff;
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 70px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            width: 50%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            color: #fff;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            width: 80%;
+            margin-top: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: 5px solid #fff; 
+            border-radius: 10px; 
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #payrollTableContainer {
+            margin-top: 20px;
+            text-align: center;
+            width: 50%; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #fff;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="header-container">
+            <h1>Payroll System</h1>
+        </div>
+    </div>
+
+    <div class="container" id="payrollTableContainer">
+        <h2>Enter Employee Details</h2>
+        <label for="employeeName">Employee Name:</label>
+        <input type="text" id="employeeName" placeholder="Enter Employee Name">
+        
+        <label for="daysWorked">Days Worked:</label>
+        <input type="number" id="daysWorked" placeholder="Enter Days Worked">
+        
+        <label for="dailyRate">Daily Rate:</label>
+        <input type="number" id="dailyRate" placeholder="Enter Daily Rate">
+        
+        <label for="deductionAmount">Deduction Amount:</label>
+        <input type="number" id="deductionAmount" placeholder="Enter Deduction Amount">
+        
+        <button onclick="showModal('confirmationModal')">Add Employee</button>
+    </div>
+
+    <div class="container" id="payrollTableContainer">
+        <h2>Payroll List</h2>
+        <table id="payrollTable">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Employee Name</th>
+                    <th>Days Worked</th>
+                    <th>Daily Rate</th>
+                    <th>Gross Pay</th>
+                    <th>Deduction Amount</th>
+                    <th>Net Pay</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="payrollTableBody"></tbody>
+        </table>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('confirmationModal')">&times;</span>
+            <p>Are you sure you want to add this employee?</p>
+            <button onclick="addEmployee()">Yes</button>
+            <button onclick="closeModal('confirmationModal')">No</button>
+        </div>
+    </div>
+
+    <div id="deleteConfirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('deleteConfirmationModal')">&times;</span>
+            <p>Are you sure you want to delete this employee?</p>
+            <button id="deleteButton">Yes</button>
+            <button onclick="closeModal('deleteConfirmationModal')">No</button>
+        </div>
+    </div>
+
+    <button onclick="clearTable()" class="clear-button">Clear Table</button>
+
+    <div id="clearConfirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('clearConfirmationModal')">&times;</span>
+            <p>Are you sure you want to clear the entire payroll list?</p>
+            <button id="clearButton">Yes</button>
+            <button onclick="closeModal('clearConfirmationModal')">No</button>
+        </div>
+    </div>
+
+
+    <button class="back-button" onclick="goBack()">Back</button>
+</body>
+</html>

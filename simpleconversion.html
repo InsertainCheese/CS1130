@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.cdnfonts.com/css/8bit-wonder" rel="stylesheet">
+    <script defer src="simpleconversion.js"></script>
+    <style>
+        body {
+            background: url('https://i.pinimg.com/originals/2f/f6/85/2ff68556b9d25c1aed0d365af26a8042.gif') center center fixed;
+            background-size: cover;
+            font-family: '8bit Wonder', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden; 
+        }
+
+        .main .header-container {
+            background: none; 
+            border: none;
+            padding: 20px;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            width: calc(100% - 20px); 
+        }
+
+        .main h1 {
+            color: #fff;
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 70px;
+        }
+
+        .conversion-container {
+            background: rgba(0, 0, 0, 0.7); 
+            color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px; 
+            text-align: center;
+            max-width: 400px;
+            width: 100%; 
+        }
+
+        .conversion-container h2 {
+            font-size: 19px; 
+            margin-bottom: 10px;
+        }
+
+        .result-box {
+            background: rgba(0, 0, 0, 0.7); 
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        label, input, button, select {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7); /* Transparent black background */
+            color: #fff;
+            border: 5px solid #fff; 
+            border-radius: 10px; 
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #result {
+            color: #fff;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .back-button {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7); 
+            color: #fff;
+            border: 3px solid #fff;
+            border-radius: 10px; 
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="header-container">
+            <h1>Simple Conversion</h1>
+        </div>
+    </div>
+
+    <div class="conversion-container">
+        <h2>Select Conversion Type:</h2>
+        <select id="conversionType" onchange="showInput()">
+            <option value="1">Fahrenheit to Celsius</option>
+            <option value="2">Celsius to Fahrenheit</option>
+            <option value="3">Meters to Feet</option>
+            <option value="4">Feet to Meters</option>
+        </select>
+
+        <div id="inputSection" style="display: none;">
+            <label for="inputValue">Enter Value:</label>
+            <input type="number" id="inputValue">
+            <button onclick="convert()">Convert</button>
+            <div class="result-box" id="result"></div>
+        </div>
+    </div>
+
+    <button class="back-button" onclick="goBack()">Back</button>
+</body>
+</html>
